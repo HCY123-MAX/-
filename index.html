@@ -1,0 +1,259 @@
+<<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ===== 全局重置 & 字体 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: linear-gradient(145deg, #f6f9fc 0%, #e6f0f5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* ===== 主卡片 ===== */
+        .card {
+            max-width: 780px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 48px 40px;
+            box-shadow: 0 30px 60px rgba(0, 20, 30, 0.12), 0 10px 30px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: transform 0.25s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* ===== 头像 ===== */
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2b7a7a, #3aa8a8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #fff;
+            margin: 0 auto 20px;
+            box-shadow: 0 12px 28px rgba(42, 147, 147, 0.25);
+            user-select: none;
+        }
+
+        /* ===== 标题 & 简介 ===== */
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a2e35;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .subhead {
+            text-align: center;
+            font-size: 16px;
+            color: #4d6a78;
+            border-bottom: 2px solid rgba(58, 168, 168, 0.25);
+            padding-bottom: 20px;
+            margin-bottom: 28px;
+            font-weight: 400;
+        }
+
+        /* ===== 版块标题 ===== */
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a3b44;
+            margin: 28px 0 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #2b7a7a;
+            font-size: 22px;
+            width: 30px;
+        }
+
+        /* ===== 自我介绍 ===== */
+        .bio {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #1f3d48;
+            background: rgba(43, 122, 122, 0.05);
+            padding: 16px 20px;
+            border-radius: 24px;
+            border-left: 4px solid #3aa8a8;
+        }
+
+        /* ===== 兴趣标签 ===== */
+        .interests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .tag {
+            background: #fff;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1a3b44;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(58, 168, 168, 0.25);
+            transition: 0.2s;
+        }
+
+        .tag:hover {
+            background: #2b7a7a;
+            color: #fff;
+            border-color: #2b7a7a;
+            transform: scale(1.03);
+        }
+
+        /* ===== 联系方式 ===== */
+        .contact-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 6px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff;
+            padding: 12px 24px 12px 20px;
+            border-radius: 60px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            text-decoration: none;
+            color: #1f3d48;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.25s;
+        }
+
+        .contact-item i {
+            font-size: 20px;
+            width: 24px;
+            color: #2b7a7a;
+        }
+
+        .contact-item:hover {
+            background: #1a3b44;
+            color: #fff;
+            border-color: #1a3b44;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(26, 59, 68, 0.15);
+        }
+
+        .contact-item:hover i {
+            color: #fff;
+        }
+
+        /* ===== 页脚 ===== */
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 13px;
+            color: #7a949f;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            padding-top: 22px;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 500px) {
+            .card {
+                padding: 30px 20px;
+                border-radius: 32px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+            .contact-grid {
+                flex-direction: column;
+            }
+            .contact-item {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+
+        <!-- 头像（换成文字首字母或 emoji） -->
+        <div class="avatar">👨‍💻</div>
+
+        <!-- 姓名 & 一句话介绍 -->
+        <h1>你好，我是 胡朝昱</h1>
+        <div class="subhead">✨ 二次元死宅，忠诚的米卫兵</div>
+
+        <!-- ===== 自我介绍 ===== -->
+        <div class="section-title">
+            <i class="fas fa-user-astronaut"></i> 关于我
+        </div>
+        <div class="bio">
+            热爱动漫和网游<br />
+            欧美野蛮作息，偶尔刷刷短视频
+        </div>
+
+        <!-- ===== 兴趣 ===== -->
+        <div class="section-title">
+            <i class="fas fa-heart"></i> 兴趣
+        </div>
+        <div class="interests">
+            <span class="tag">二游</span>
+            <span class="tag">睡觉</span>
+            <span class="tag">美食</span>
+            <span class="tag">🎮 独立游戏</span>
+            <span class="tag">💭 梦想</span>
+        </div>
+
+        <!-- ===== 联系方式 ===== -->
+        <div class="section-title">
+            <i class="fas fa-paper-plane"></i> 联系我
+        </div>
+        <div class="contact-grid">
+            <a href="mailto:your-email@example.com" class="contact-item">
+                <i class="fas fa-envelope"></i> Email：246528686@qq.com
+            </a>
+            <a href="https://github.com/你的用户名" target="_blank" class="contact-item">
+                <i class="fab fa-github"></i> GitHub: <HCY123-MAX>
+            </a>
+            <a href="#" class="contact-item">
+                <i class="fab fa-weixin"></i> 微信：HW200801240924
+            </a>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            © 2026 胡朝昱 · 用 ☕ 和 ❤️ 构建
+        </div>
+
+    </div>
+</body>
+</html>
