@@ -13,12 +13,22 @@
         }
         body {
             font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
-            background: linear-gradient(145deg, #f6f9fc 0%, #e6f0f5 100%);
+            /* 修改这里填入你的背景图片URL */
+            background: url("https://github.com/HCY123-MAX/-/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260906221224_69_2.jpg?raw=true") center center / cover no-repeat fixed;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            position: relative;
+        }
+        /* 图片背景半透明遮罩 0.35为透明度，数值越大越暗 */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.35);
+            z-index: -1;
         }
         .card {
             max-width: 780px;
@@ -173,14 +183,12 @@
 </head>
 <body>
     <div class="card">
-        <!-- ==========头像区域 更换看下面步骤========== -->
+        <!-- ==========头像区域 ========== -->
         <div class="avatar-wrap">
             <img src="https://github.com/HCY123-MAX/-/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260905231308_68_2.jpg?raw=true" alt="头像">
         </div>
-
         <h1>你好，我是 胡朝昱</h1>
         <div class="subhead">✨ 二次元死宅，忠诚的米卫兵</div>
-
         <div class="section-title">
             <i class="fas fa-user-astronaut"></i> 关于我
         </div>
@@ -188,7 +196,6 @@
             热爱动漫和网游<br>
             欧美野蛮作息，偶尔刷刷短视频
         </div>
-
         <div class="section-title">
             <i class="fas fa-heart"></i> 兴趣
         </div>
@@ -199,7 +206,6 @@
             <span class="tag">🎮 独立游戏</span>
             <span class="tag">💭 梦想</span>
         </div>
-
         <div class="section-title">
             <i class="fas fa-paper-plane"></i> 联系我
         </div>
@@ -214,7 +220,6 @@
                 <i class="fab fa-weixin"></i> 微信：HW200801240924
             </a>
         </div>
-
         <div class="footer">
             © 2026 胡朝昱 · 用 ☕ 和 ❤️ 构建
         </div>
