@@ -1,18 +1,16 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Font Awesome 图标库 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome图标CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ===== 全局重置 & 字体 ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
             background: linear-gradient(145deg, #f6f9fc 0%, #e6f0f5 100%);
@@ -22,8 +20,6 @@
             align-items: center;
             padding: 20px;
         }
-
-        /* ===== 主卡片 ===== */
         .card {
             max-width: 780px;
             width: 100%;
@@ -36,28 +32,23 @@
             border: 1px solid rgba(255, 255, 255, 0.6);
             transition: transform 0.25s ease;
         }
-
         .card:hover {
             transform: translateY(-4px);
         }
-
-        /* ===== 头像 ===== */
-        .avatar {
+        /* 头像容器 */
+        .avatar-wrap {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #2b7a7a, #3aa8a8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: #fff;
+            overflow: hidden;
             margin: 0 auto 20px;
             box-shadow: 0 12px 28px rgba(42, 147, 147, 0.25);
-            user-select: none;
         }
-
-        /* ===== 标题 & 简介 ===== */
+        .avatar-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         h1 {
             text-align: center;
             font-size: 32px;
@@ -66,7 +57,6 @@
             letter-spacing: 1px;
             margin-bottom: 6px;
         }
-
         .subhead {
             text-align: center;
             font-size: 16px;
@@ -76,8 +66,6 @@
             margin-bottom: 28px;
             font-weight: 400;
         }
-
-        /* ===== 版块标题 ===== */
         .section-title {
             font-size: 20px;
             font-weight: 600;
@@ -87,14 +75,11 @@
             align-items: center;
             gap: 10px;
         }
-
         .section-title i {
             color: #2b7a7a;
             font-size: 22px;
             width: 30px;
         }
-
-        /* ===== 自我介绍 ===== */
         .bio {
             font-size: 16px;
             line-height: 1.8;
@@ -104,15 +89,11 @@
             border-radius: 24px;
             border-left: 4px solid #3aa8a8;
         }
-
-        /* ===== 兴趣标签 ===== */
         .interests {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-top: 4px;
         }
-
         .tag {
             background: #fff;
             padding: 8px 20px;
@@ -124,22 +105,17 @@
             border: 1px solid rgba(58, 168, 168, 0.25);
             transition: 0.2s;
         }
-
         .tag:hover {
             background: #2b7a7a;
             color: #fff;
             border-color: #2b7a7a;
             transform: scale(1.03);
         }
-
-        /* ===== 联系方式 ===== */
         .contact-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
-            margin-top: 6px;
         }
-
         .contact-item {
             display: flex;
             align-items: center;
@@ -155,13 +131,11 @@
             font-weight: 500;
             transition: 0.25s;
         }
-
         .contact-item i {
             font-size: 20px;
             width: 24px;
             color: #2b7a7a;
         }
-
         .contact-item:hover {
             background: #1a3b44;
             color: #fff;
@@ -169,12 +143,9 @@
             transform: translateY(-3px);
             box-shadow: 0 12px 24px rgba(26, 59, 68, 0.15);
         }
-
         .contact-item:hover i {
             color: #fff;
         }
-
-        /* ===== 页脚 ===== */
         .footer {
             margin-top: 40px;
             text-align: center;
@@ -183,8 +154,6 @@
             border-top: 1px solid rgba(0, 0, 0, 0.04);
             padding-top: 22px;
         }
-
-        /* ===== 响应式 ===== */
         @media (max-width: 500px) {
             .card {
                 padding: 30px 20px;
@@ -204,24 +173,22 @@
 </head>
 <body>
     <div class="card">
+        <!-- ==========头像区域 更换看下面步骤========== -->
+        <div class="avatar-wrap">
+            <img src="https://github.com/HCY123-MAX/-/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260905231308_68_2.jpg?raw=true" alt="头像">
+        </div>
 
-        <!-- 头像（换成文字首字母或 emoji） -->
-        <div class="avatar">👨‍💻</div>
-
-        <!-- 姓名 & 一句话介绍 -->
         <h1>你好，我是 胡朝昱</h1>
         <div class="subhead">✨ 二次元死宅，忠诚的米卫兵</div>
 
-        <!-- ===== 自我介绍 ===== -->
         <div class="section-title">
             <i class="fas fa-user-astronaut"></i> 关于我
         </div>
         <div class="bio">
-            热爱动漫和网游<br />
+            热爱动漫和网游<br>
             欧美野蛮作息，偶尔刷刷短视频
         </div>
 
-        <!-- ===== 兴趣 ===== -->
         <div class="section-title">
             <i class="fas fa-heart"></i> 兴趣
         </div>
@@ -233,27 +200,24 @@
             <span class="tag">💭 梦想</span>
         </div>
 
-        <!-- ===== 联系方式 ===== -->
         <div class="section-title">
             <i class="fas fa-paper-plane"></i> 联系我
         </div>
         <div class="contact-grid">
-            <a href="mailto:your-email@example.com" class="contact-item">
+            <a href="mailto:246528686@qq.com" class="contact-item">
                 <i class="fas fa-envelope"></i> Email：246528686@qq.com
             </a>
-            <a href="https://github.com/你的用户名" target="_blank" class="contact-item">
-                <i class="fab fa-github"></i> GitHub: <HCY123-MAX>
+            <a href="https://github.com/HCY123-MAX" target="_blank" class="contact-item">
+                <i class="fab fa-github"></i> GitHub: HCY123‑MAX
             </a>
             <a href="#" class="contact-item">
                 <i class="fab fa-weixin"></i> 微信：HW200801240924
             </a>
         </div>
 
-        <!-- 页脚 -->
         <div class="footer">
             © 2026 胡朝昱 · 用 ☕ 和 ❤️ 构建
         </div>
-
     </div>
 </body>
 </html>
