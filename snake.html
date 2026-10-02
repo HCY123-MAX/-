@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>贪吃蛇小游戏-阶段1</title>
+    <title>贪吃蛇小游戏-阶段2（含AI）</title>
     <style>
         body {
             display: flex;
@@ -22,6 +22,10 @@
             font-size:18px;
             margin-bottom:8px;
         }
+        .btn-group{
+            display:flex;
+            gap:12px;
+        }
         button{
             padding:6px 14px;
             font-size:16px;
@@ -32,6 +36,9 @@
             border-radius:4px;
             margin: 8px 0;
         }
+        #aiBtn{
+            background:#ff9944;
+        }
         a{
             color:#42b983;
             margin-top:10px;
@@ -39,15 +46,18 @@
     </style>
 </head>
 <body>
-    <h2>贪吃蛇 | 方向键 ↑↓←→ 手动控制</h2>
+    <h2>贪吃蛇 | 方向键 ↑↓←→ 手动控制 / AI自动演示</h2>
     <div class="info-panel">
         <div>当前得分：<span id="score">0</span></div>
         <div>最高分：<span id="highScore">0</span></div>
         <div>已吃食物：<span id="foodCount">0</span></div>
     </div>
-    <button id="resetBtn">重置游戏</button>
+    <div class="btn-group">
+        <button id="resetBtn">重置游戏</button>
+        <button id="aiBtn">开启AI自动演示</button>
+    </div>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
-    <p id="tip">点击画布，按方向键开始游戏</p>
+    <p id="tip">点击画布，按方向键开始手动游戏，点AI按钮自动游玩</p>
     <br>
     <a href="index.html">← 返回自我介绍主页</a>
 
@@ -58,6 +68,7 @@
         const highScoreText = document.getElementById('highScore');
         const foodCountText = document.getElementById('foodCount');
         const resetBtn = document.getElementById('resetBtn');
+        const aiBtn = document.getElementById('aiBtn');
         const tipText = document.getElementById('tip');
 
         const size = 20;
@@ -69,6 +80,7 @@
         let foodCount;
         let gameOver;
         let gameLoopTimer;
+        let aiMode = false;
 
         // 读取本地保存最高分
         let highScore = localStorage.getItem('snakeHighScore') || 0;
@@ -83,8 +95,10 @@
             score = 0;
             foodCount = 0;
             gameOver = false;
+            aiMode = false;
+            aiBtn.innerText = "开启AI自动演示";
             updateUI();
-            tipText.innerText = "点击画布，按方向键开始游戏";
+            tipText.innerText = "点击画布，按方向键开始手动游戏";
             if(gameLoopTimer) clearInterval(gameLoopTimer);
             gameLoopTimer = setInterval(gameLoop,150);
         }
@@ -119,9 +133,38 @@
             }
         }
 
-        // 键盘监听
+        // AI决策：筛选安全方向，优先走向食物
+        function aiDecideDirection(){
+            const head = snake[0];
+            const possibleDirs = [
+                {dx: size, dy:0},
+                {dx:-size, dy:0},
+                {dx:0, dy:size},
+                {dx:0, dy:-size}
+            ];
+            // 过滤危险方向（撞墙/撞身体）
+            const safeDirs = possibleDirs.filter(d=>{
+                const nx = head.x + d.dx;
+                const ny = head.y + d.dy;
+                if(nx<0 || nx>=canvas.width || ny<0 || ny>=canvas.height) return false;
+                for(let seg of snake){
+                    if(seg.x === nx && seg.y === ny) return false;
+                }
+                return true;
+            })
+            if(safeDirs.length === 0) return {dx, dy};
+            // 在安全方向里，选择曼哈顿距离离食物最近的
+            safeDirs.sort((a,b)=>{
+                const distA = Math.abs(head.x+a.dx - food.x) + Math.abs(head.y+a.dy - food.y);
+                const distB = Math.abs(head.x+b.dx - food.x) + Math.abs(head.y+b.dy - food.y);
+                return distA - distB;
+            })
+            return safeDirs[0];
+        }
+
+        // 键盘监听（手动模式）
         document.addEventListener('keydown', (e)=>{
-            if(gameOver) return;
+            if(gameOver || aiMode) return;
             tipText.innerText = "";
             switch(e.key){
                 case 'ArrowUp': if(dy !== size){ dx=0; dy=-size; } break;
@@ -132,6 +175,16 @@
         })
 
         resetBtn.addEventListener('click', initGame);
+        aiBtn.addEventListener('click', ()=>{
+            aiMode = !aiMode;
+            if(aiMode){
+                aiBtn.innerText = "关闭AI";
+                tipText.innerText = "AI自动运行，目标连续吃15个食物";
+            }else{
+                aiBtn.innerText = "开启AI自动演示";
+                tipText.innerText = "手动模式";
+            }
+        })
 
         function gameLoop(){
             if(gameOver){
@@ -142,6 +195,13 @@
                 tipText.innerText = "游戏结束，点重置按钮重新开始";
                 return;
             }
+            // AI模式自动计算方向
+            if(aiMode){
+                const nextDir = aiDecideDirection();
+                dx = nextDir.dx;
+                dy = nextDir.dy;
+            }
+
             // 清空画布
             ctx.fillStyle="#000";
             ctx.fillRect(0,0,canvas.width,canvas.height);
