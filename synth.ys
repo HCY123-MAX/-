@@ -1,0 +1,9 @@
+read_verilog demo.v
+hierarchy -check -top demo
+proc
+fsm
+opt
+simplify
+abc -liberty /work/croc/ihp13/sg13cmos5l/libs.tech/klayout/sg13cmos5l_tech.lef
+write_verilog synth_result.v
+show
