@@ -51,6 +51,8 @@
         <div>当前得分：<span id="score">0</span></div>
         <div>最高分：<span id="highScore">0</span></div>
         <div>已吃食物：<span id="foodCount">0</span></div>
+        <!-- 新增：局数显示 -->
+        <div>总局数：<span id="gameCount">0</span></div>
     </div>
     <div class="btn-group">
         <button id="resetBtn">重置游戏</button>
@@ -60,17 +62,16 @@
     <p id="tip">点击画布，按方向键开始手动游戏，点AI按钮自动游玩</p>
     <br>
     <a href="index.html">← 返回自我介绍主页</a>
-
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const scoreText = document.getElementById('score');
         const highScoreText = document.getElementById('highScore');
         const foodCountText = document.getElementById('foodCount');
+        const gameCountText = document.getElementById('gameCount'); // 新增：局数DOM
         const resetBtn = document.getElementById('resetBtn');
         const aiBtn = document.getElementById('aiBtn');
         const tipText = document.getElementById('tip');
-
         const size = 20;
         let snake;
         let food;
@@ -86,6 +87,10 @@
         let highScore = localStorage.getItem('snakeHighScore') || 0;
         highScoreText.innerText = highScore;
 
+        // 新增：读取本地保存的总局数
+        let gameCount = localStorage.getItem('snakeGameCount') || 0;
+        gameCountText.innerText = gameCount;
+
         // 初始化游戏
         function initGame(){
             snake = [{x:10*size, y:10*size}];
@@ -97,6 +102,12 @@
             gameOver = false;
             aiMode = false;
             aiBtn.innerText = "开启AI自动演示";
+
+            // 新增：每初始化一局，局数+1并保存
+            gameCount = parseInt(gameCount) + 1;
+            localStorage.setItem('snakeGameCount', gameCount);
+            gameCountText.innerText = gameCount;
+
             updateUI();
             tipText.innerText = "点击画布，按方向键开始手动游戏";
             if(gameLoopTimer) clearInterval(gameLoopTimer);
@@ -201,14 +212,11 @@
                 dx = nextDir.dx;
                 dy = nextDir.dy;
             }
-
             // 清空画布
             ctx.fillStyle="#000";
             ctx.fillRect(0,0,canvas.width,canvas.height);
-
             // 新蛇头
             const head = {x: snake[0].x + dx, y: snake[0].y + dy};
-
             // 撞墙判断
             if(head.x <0 || head.x >= canvas.width || head.y<0 || head.y >= canvas.height){
                 gameOver = true;
@@ -219,7 +227,6 @@
                     gameOver = true;
                 }
             }
-
             snake.unshift(head);
             // 判断吃到食物
             if(head.x === food.x && head.y === food.y){
@@ -230,7 +237,6 @@
             }else{
                 snake.pop();
             }
-
             // 绘制蛇
             ctx.fillStyle="#42b983";
             for(let seg of snake){
@@ -240,6 +246,7 @@
             ctx.fillStyle="#ff5555";
             ctx.fillRect(food.x, food.y, size-1, size-1);
         }
+
         initGame();
     </script>
 </body>
